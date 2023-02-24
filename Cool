@@ -1,0 +1,83 @@
+--TRACER ESP
+
+local tracerStats = false
+local Players = game:GetService("Players"):GetChildren()
+local localPlayer = game.Players.LocalPlayer
+local camera = game:GetService("Workspace").CurrentCamera
+local CurrentCamera = Workspace.CurrentCamera
+
+for i,v in pairs(game.Players:GetChildren()) do 
+    local Tracer = Drawing.new("Line")
+    Tracer.Visible = false 
+    Tracer.Color = Color3.new(99,186,122)
+    Tracer.Thickness = 1
+    Tracer. Transparency = 1
+
+    local function lineesp()
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= localPlayer and v.Character.Humanoid.Health > 0 then
+            
+                local Vector, Onscreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+            
+                if Onscreen then
+                    Tracer.From = Vector2.new(camera.ViewportSize.X 2/, camera.ViewportSize.Y / 2)
+                    Tracer.TO = Vector2.new(Vector.X, Vector.Y)
+
+                    if v.Teamcolor == localPlayer.Teamcolor and v ~= localPlayer then
+                        Tracer.Visible = false
+                    elseif v ~= localPlayer then 
+                        Tracer.Visible = tracerState
+                end
+            else
+                Tracer.Visible = false
+            end
+
+        else
+            Tracer.Visible = false
+            end
+        end)
+    end
+    coroutine.wrap(lineesp)()
+end
+
+game.Players.PlayerAdded:Connect(function(v)
+    local Tracer = Drawing.new("Line")
+    Tracer.Visible = false 
+    Tracer.Color = Color3.new(99,186,122)
+    Tracer.Thickness = 1
+    Tracer. Transparency = 1
+
+    local function lineesp()
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= localPlayer and v.Character.Humanoid.Health > 0 then
+            
+                local Vector, Onscreen = camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+            
+                if Onscreen then
+                    Tracer.From = Vector2.new(camera.ViewportSize.X 2/, camera.ViewportSize.Y / 2)
+                    Tracer.TO = Vector2.new(Vector.X, Vector.Y)
+
+                    if v.Teamcolor == localPlayer.Teamcolor and v ~= localPlayer then
+                        Tracer.Visible = false
+                    elseif v ~= localPlayer then 
+                        Tracer.Visible = tracerState
+                end
+            else
+                Tracer.Visible = false
+            end
+
+        else
+            Tracer.Visible = false
+            end
+        end)
+    end
+    coroutine.wrap(lineesp)()
+end)
+
+tgls:Toggle("Tracer",true, function(bool)
+    if tracerState then 
+        tracerState = false
+    else
+        tracerState = true
+    end
+end)
