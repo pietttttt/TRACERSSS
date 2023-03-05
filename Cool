@@ -73,11 +73,3 @@ game.Players.PlayerAdded:Connect(function(v)
     end
     coroutine.wrap(lineesp)()
 end)
-
-tgls:Toggle("Tracer",true, function(bool)
-    if tracerState then 
-        tracerState = false
-    else
-        tracerState = true
-    end
-end)
